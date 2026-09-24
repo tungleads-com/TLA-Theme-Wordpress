@@ -86,11 +86,13 @@ $cp_logo = cp_footer_flag( 'logo' );
 				 * tungleads.com, KHÔNG còn ô nhập trong Customizer (đã bỏ setting/control `cp_footer_credit`).
 				 * 2026-09-24 (Tùng yêu cầu): `<a>` thêm `nofollow` (trước đó cố ý KHÔNG đặt) ⇒
 				 * `rel="noopener nofollow"`; CSS gạch chân của link này đã bỏ — xem `assets/caophat.css`.
+				 * 2026-09-24 (Tùng yêu cầu, lần 2): CHỮ CỦA LINK đổi `tungleads.com` → **Tùng Lê Ads**
+				 * (`href` GIỮ NGUYÊN `https://tungleads.com/`).
 				 */
 				printf(
-					/* translators: %s: thẻ liên kết tới trang tungleads.com */
+					/* translators: %s: thẻ liên kết tới trang tungleads.com (chữ hiển thị: “Tùng Lê Ads”). */
 					esc_html__( 'Thiết kế bởi: %s', 'tungleads-theme' ), // phpcs:ignore WordPress.Security.EscapeOutput -- markup <a> cố định bên dưới.
-					'<a href="https://tungleads.com/" target="_blank" rel="noopener nofollow">tungleads.com</a>'
+					'<a href="https://tungleads.com/" target="_blank" rel="noopener nofollow">Tùng Lê Ads</a>'
 				);
 				?>
 			</span>
