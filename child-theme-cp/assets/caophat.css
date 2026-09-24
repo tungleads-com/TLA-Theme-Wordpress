@@ -781,9 +781,12 @@ body.cp .star-rating { color: var(--cp-star); }
   color: var(--cp-footer-muted, #8a8073); font-size: 13px;
 }
 /* 2026-09-16 — Dòng ghi công "Thiết kế bởi tungleads.com" là markup CỐ ĐỊNH ở `footer.php` (có link).
-   `.cp a` chung đã bỏ gạch chân nên phải thêm lại để nhìn ra là link; giữ màu chữ của dòng cuối. */
-.cp-footer-bottom .cp-footer-credit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
-.cp-footer-bottom .cp-footer-credit a:hover { color: var(--cp-footer-title, #fff); }
+   `.cp a` chung đã bỏ gạch chân nên phải thêm lại để nhìn ra là link; giữ màu chữ của dòng cuối.
+   2026-09-24 (Tùng yêu cầu) — BỎ GẠCH CHÂN tên miền (bỏ `text-decoration: underline` + `text-underline-offset`)
+   và link đã thêm `rel="nofollow"` trong `footer.php`. Affordance "đây là link" nay chỉ còn ở ĐỔI MÀU khi
+   hover (`--cp-footer-title`) — cố ý `text-decoration: none` cả ở trạng thái hover để không gạch chân trở lại. */
+.cp-footer-bottom .cp-footer-credit a { color: inherit; text-decoration: none; }
+.cp-footer-bottom .cp-footer-credit a:hover { color: var(--cp-footer-title, #fff); text-decoration: none; }
 /* Tùng muốn dòng ghi công SÁT LỀ PHẢI: desktop đã sát nhờ `justify-content: space-between`, nhưng ở ≤560px
    dòng cuối xuống hàng thì món mới nằm bên TRÁI → `margin-left: auto` đẩy sang phải ở mọi bề rộng. */
 .cp-footer-bottom .cp-footer-credit { margin-left: auto; }

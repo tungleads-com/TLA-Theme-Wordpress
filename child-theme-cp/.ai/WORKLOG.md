@@ -19,15 +19,14 @@
 ## §1 ĐANG LÀM (bàn giao — ghi đè mỗi phiên, chỉ giữ 1 khối)
 
 - **Model:** phiên này chạy **Cline** (VS Code) — **nhãn commit do Tùng chốt: `[deepseek]`**.
-- **Việc ĐÃ XONG phiên 2026-09-18:** (1) `.cp-spec__ic` 40→30px; (2) `.cp-contact-btn` thêm `padding: 10px`; (3) plugin: bỏ emoji 2 chuỗi Settings;
-  (4) **theme cha** fix P2.3 (gỡ twemoji cả trong wp-admin); (5) **tối ưu tài liệu**: `CLAUDE.md` thành chỉ mục CP (131,6 KB → 6,9 KB)
-  + hạn mức + luật “một sự thật một nhà”; (6) **ngoài repo**: chuẩn cấu trúc dự án **v1.0** + `CHANGELOG.md`;
-  (7) **MONOREPO**: gộp `parent-theme/` + `plugin-tien-ich/` + `plugin-zalo/` (subtree, giữ lịch sử) + sửa 2 lỗi chặn deploy + fix fatal autoloader parent + `AGENTS.md`/`CLAUDE.md` gốc.
-- **Đang dở:** (không) — repo sạch, site local **smoke 24/24**, theme 0 lỗi.
-- **⚠️ Bàn giao:** path WordPress KHÔNG đổi, nhưng **nguồn code giờ là các thư mục con** của monorepo (`child-theme-cp/` …).
-  Local = 4 bind mount trong `docker-compose.yml`; deploy = rsync thư mục con (xem `AGENTS.md` gốc + script). **Gốc monorepo KHÔNG phải theme.**
-- **Chờ TÙNG:** `./deploy-caophat.sh --go` khi muốn đẩy production (plugin v1.2.0 + theme cha có fix P2.3 ⇒ ship cả parent).
-- **Còn tồn trên production (phần Tùng):** regenerate thumbnail (96 ảnh lỗi) · ảnh `.webp` do LiteSpeed sinh · sửa dữ liệu host.
+- **Việc ĐÃ XONG phiên 2026-09-24 (CP1.3 — làn A/B):** dòng ghi công chân trang “Thiết kế bởi: tungleads.com” — **bỏ gạch chân tên miền**
+  (`assets/caophat.css`: `text-decoration: none`, giữ nguyên cả khi hover) + `<a>` thêm **`nofollow`** (`footer.php`: `rel="noopener"` → `rel="noopener nofollow"`).
+- **Đo lại (Playwright + Chrome, 1440/768/390):** TRƯỚC `text-decoration-line: underline` (offset 2px) + `rel="noopener"` → SAU **`none`** (hover cũng `none`,
+  affordance chỉ còn đổi màu `rgb(87,80,74)` → `rgb(20,18,15)`); tràn ngang **0** ở cả 3 mức; hit-test tâm + 4 điểm quanh link = **`A`**; 0 PHP notice. Chi tiết: FEATURE_MAP `### CP1.3`.
+- **Đang dở:** (không) — repo sạch sau commit. **Việc tiếp theo/chờ TÙNG:** (1) `./deploy-caophat.sh --go` khi muốn đẩy production; (2) đổi slug đăng nhập thật trên prod; (3) tách `parent-theme` khi có site khách thứ 2.
+- **⚠️ Môi trường máy này:** cổng `3307` đang bị project KHÁC chiếm (`sofakimphucom-db-1`) ⇒ chạy local bằng override ngoài repo:
+  `docker compose -f docker-compose.yml -f /tmp/tla-override.yml up -d` (DB dời sang `127.0.0.1:3308`) → site `http://localhost:8888` ✓.
+- **Cập nhật lúc:** 2026-09-24 (giờ thật)
 
 ## §2 NHẬT KÝ (chỉ ghi thêm, mới nhất ở dưới)
 
@@ -36,7 +35,6 @@
 
 > 📦 **Rotate 2026-09-18:** 144 dòng cũ (trước 2026-09-13 19:45) đã chuyển **nguyên văn** sang `.ai/WORKLOG-archive-2026-Q3.md`. §2 chỉ giữ **≤20 dòng gần nhất** (luật ở `AGENTS.md`). Tra việc cũ: `grep -n "<khoá>" .ai/WORKLOG-archive-2026-Q3.md` **Rút gọn 2026-09-18:** 20 dòng đang giữ đã viết lại ≤ 300 ký tự/dòng; bản ĐẦY ĐỦ ở `.ai/FEATURE_MAP.md` §“§2 GỐC”.
 
-| 2026-09-17 14:12 (giờ thật) | cline | **CP8 v0.4.1 — THÊM KHỐI MỤC LỤC TRONG NỘI DUNG BÀI VIẾT** (Tùng: *“thêm tuỳ chọn mục lục hiển thị trong phần nội dung bài viết”*, ngay sau khi tự tay… *(xem FEATURE_MAP §2 GỐC)* | plugin: `includes/toc.php`, `assets/toc.css`, `assets/t | ✅ |
 | 2026-09-17 14:38 (giờ thật) | cline | **CP1.9 — “CHI NHÁNH & HOTLINE CAO PHÁT” CHUYỂN TỪ PLUGIN VỀ THEME** (Tùng hỏi *“chuyển phần (Hotline chi nhánh) trong plugin ra ngoài phần cài đặt …… *(xem FEATURE_MAP §2 GỐC)* | theme: `inc/customizer.php`, `functions.php`, `inc/wooc | ✅ |
 | 2026-09-17 14:57 (giờ thật) | cline | **1) TRẢ LỜI CÂU HỎI “mang plugin sang WordPress khác có chạy không?” — ĐÃ ĐO THẬT:** dựng **một WordPress MỚI** trong Docker (WP 7.1 + t | plugin: `tl-site-caophat.php` (**v0.6.0* | ✅ — ❌ đã đổi tên 2026-09-17 → plugin `pl-tien-ich-tungleads` |
 | 2026-09-17 15:10 (giờ thật) | cline | **ĐỔI TÊN + GHI CHÚ PLUGIN THEO HƯỚNG DÙNG CHUNG (v0.7.0)** (Tùng: *“tận dụng Plugin này cho các dự án website WordPress khác → các thông | plugin: `tl-site-caophat.php` (**v0.7.0* | ✅ — ❌ đã đổi tên 2026-09-17 → plugin `pl-tien-ich-tungleads` |
@@ -89,3 +87,4 @@
 
 | 2026-09-18 14:10 (giờ thật) | cline | **Ngoài repo:** áp 6 chỉnh sửa vào chuẩn cấu trúc dự án `~/.claude/docs/project-structure-standard.md` (bản 18b) — khối tool tự sinh = **config-first**, tag `[FE]/[BE]/[DB]`, ngân sách ≤6k token/phiên, mục nhiều repo, cấm | ngoài repo | ✅ |
 | 2026-09-18 20:55 (giờ thật) | cline | ❌ **ĐÍNH CHÍNH cấu trúc**: repo này giờ là **MONOREPO** (`parent-theme/` `plugin-tien-ich/` `plugin-zalo/`) — hết 4 repo riêng; local cần 4 bind mount (thiếu ⇒ `theme_no_stylesheet`); kèm fix fatal autoloader parent + deploy script trỏ thư mục con. | `AGENTS.md`/`CLAUDE.md` gốc, `docker-compose.yml`, `deploy-caophat.sh` | ✅ |
+| 2026-09-24 (giờ thật) | cline | ❌ **ĐÍNH CHÍNH CP1.3 — ghi công chân trang: bỏ gạch chân tên miền + link thêm `nofollow`.** Đo 1440/768/390: `underline`→`none`, tràn ngang 0, 0 notice. Chi tiết ở FEATURE_MAP `### CP1.3`. | `footer.php`, `assets/caophat.css`, FEATURE_MAP | ✅ |

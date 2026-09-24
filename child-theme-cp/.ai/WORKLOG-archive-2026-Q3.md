@@ -155,3 +155,6 @@
 | 2026-09-17 13:10 (giờ thật) | cline | **`gap: 0` cho hàng số đánh giá + MÀU SAO DÙNG CHUNG cho mọi thẻ card** (2 việc Tùng giao tiếp trong cùng khung chat). **(1) `gap: 8px → 0`** ở `.wooc… *(xem FEATURE_MAP §2 GỐC)* | `assets/caophat.css`, `CLAUDE.md` (CP3.2 + CP4.1), `.ai | xong |
 | 2026-09-17 14:10 (giờ thật) | cline | **CP8 — MỤC LỤC NỘI DUNG (plugin `tl-site-caophat` v0.4.0)** (Tùng: *“xây dựng tiếp tính năng mục lục thêm vào plugin cao phát để quản lý”*, demo `tun… *(xem FEATURE_MAP §2 GỐC)* | `plugins/tl-site-caophat/includes/toc.php` (**mới**), ` | ✅ — ❌ đã đổi tên 2026-09-17 → plugin `pl-tien-ich-tungleads` |
 | 2026-09-17 14:35 (giờ thật) | cline | **Đo lại mục lục theo CẤU HÌNH TÙNG TỰ CHỈNH** (Tùng vào Settings → Cao Phát đổi: nhãn **“Mục lục”**, mép **TRÁI**, màu **`#ffa305`**): xác nhận từng… *(xem FEATURE_MAP §2 GỐC)* | `docs/measure/toc-left.mjs`, `docs/measure/README.md` | ✅ |
+
+<!-- rotate 2026-09-24: dòng cũ nhất của §2 chuyển nguyên văn về đây -->
+| 2026-09-17 14:12 (giờ thật) | cline | **CP8 v0.4.1 — THÊM KHỐI MỤC LỤC TRONG NỘI DUNG BÀI VIẾT** (Tùng: *“thêm tuỳ chọn mục lục hiển thị trong phần nội dung bài viết”*, ngay sau khi tự tay… *(xem FEATURE_MAP §2 GỐC)* | plugin: `includes/toc.php`, `assets/toc.css`, `assets/t | ✅ |
