@@ -19,15 +19,15 @@
 ## §1 ĐANG LÀM (bàn giao — ghi đè mỗi phiên, chỉ giữ 1 khối)
 
 - **Model:** phiên này chạy **Cline** (VS Code) — **nhãn commit do Tùng chốt: `[deepseek]`**.
-- **CP1.3 — XONG + ĐÃ DEPLOY PROD (2026-09-24):** dòng ghi công chân trang “Thiết kế bởi: tungleads.com” — **bỏ gạch chân tên miền**
-  (`assets/caophat.css`: `text-decoration: none`, cả khi `:hover`) + `<a>` thêm **`nofollow`** (`footer.php`: `rel="noopener nofollow"`).
-- **Commit:** `2c67e5b` + `e60bb6d` (local, **CHƯA push**) · **Deploy:** `./deploy-caophat.sh --go` (dry-run trước: 2 file, 0 xoá) ⇒ prod khớp local **md5 2/2**.
-- **Kiểm chứng PROD (từ ngoài):** `/`, `/san-pham/`, `/cart/` đều trả `rel="noopener nofollow"`; Playwright prod 1440/390: `text-decoration-line: none`,
-  hover chỉ đổi màu (`rgb(87,80,74)`→`rgb(20,18,15)`), tràn ngang 0, 0 PHP notice, 0 lỗi JS.
-- **⚠️ Bài học (mới):** trang chủ ban đầu VẪN phục vụ **HTML cache cũ** (`rel="noopener"` — CSS thì đã mới ngay) ⇒ sau deploy **BẮT BUỘC purge LiteSpeed**
-  (`wp eval 'do_action("litespeed_purge_all")'` bằng PHP 8.2 trên host) rồi kiểm lại: cache `hit` nay trả `nofollow` ✓.
+- **CP1.3 — XONG + ĐÃ DEPLOY PROD (2026-09-24), 2 thay đổi:** (a) dòng ghi công chân trang **bỏ gạch chân tên miền** + `<a>` thêm **`nofollow`**;
+  (b) **đổi CHỮ link** `tungleads.com` → **`Tùng Lê Ads`** (`href` / `target` / `rel` GIỮ NGUYÊN). Cả dòng nay in là: “Thiết kế bởi: Tùng Lê Ads”.
+- **Commit:** `2c67e5b` · `e60bb6d` · `988dcc5` · **`6cc6cea`** (local, **CHƯA push**) · **Deploy:** `./deploy-caophat.sh --go` ×2 (lần nào cũng dry-run trước, **0 file xoá**).
+- **Kiểm chứng PROD:** `/`, `/san-pham/`, `/cart/` trả `rel="noopener nofollow"` + chữ `Tùng Lê Ads`; Playwright prod 1440/390 & local 1440/768/390:
+  `text-decoration-line: none`, rect link **94,84 → 76,53px** (local) / **74,52px** (prod), tràn ngang **0**, 0 PHP notice, 0 lỗi JS.
+- **⚠️ Bài học (bắt buộc nhớ):** sau deploy theme, HTML các trang vẫn là **cache cũ** (CSS đổi thấy ngay, nhưng chữ/`rel` thì không) ⇒ phải
+  **purge LiteSpeed**: `wp eval 'do_action("litespeed_purge_all")'` bằng PHP 8.2 trên host → cache `hit` mới trả bản mới ✓.
 - **Đang dở:** (không). **Tiếp theo:** (1) **push** 2 repo GitHub; (2) đổi slug đăng nhập prod; (3) tách `parent-theme` khi có site khách thứ 2.
-- **Cập nhật lúc:** 2026-09-24 (giờ thật) · ⚠️ máy này: cổng `3307` bị project khác chiếm ⇒ local chạy kèm override `/tmp/tla-override.yml` (DB `127.0.0.1:3308`).
+- **Cập nhật lúc:** 2026-09-24 (giờ thật) · ⚠️ máy này: cổng `3307` bị project khác chiếm ⇒ local cần override `/tmp/tla-override.yml` (DB `3308`).
 
 ## §2 NHẬT KÝ (chỉ ghi thêm, mới nhất ở dưới)
 
@@ -36,7 +36,6 @@
 
 > 📦 **Rotate 2026-09-18:** 144 dòng cũ (trước 2026-09-13 19:45) đã chuyển **nguyên văn** sang `.ai/WORKLOG-archive-2026-Q3.md`. §2 chỉ giữ **≤20 dòng gần nhất** (luật ở `AGENTS.md`). Tra việc cũ: `grep -n "<khoá>" .ai/WORKLOG-archive-2026-Q3.md` **Rút gọn 2026-09-18:** 20 dòng đang giữ đã viết lại ≤ 300 ký tự/dòng; bản ĐẦY ĐỦ ở `.ai/FEATURE_MAP.md` §“§2 GỐC”.
 
-| 2026-09-17 14:57 (giờ thật) | cline | **1) TRẢ LỜI CÂU HỎI “mang plugin sang WordPress khác có chạy không?” — ĐÃ ĐO THẬT:** dựng **một WordPress MỚI** trong Docker (WP 7.1 + t | plugin: `tl-site-caophat.php` (**v0.6.0* | ✅ — ❌ đã đổi tên 2026-09-17 → plugin `pl-tien-ich-tungleads` |
 | 2026-09-17 15:10 (giờ thật) | cline | **ĐỔI TÊN + GHI CHÚ PLUGIN THEO HƯỚNG DÙNG CHUNG (v0.7.0)** (Tùng: *“tận dụng Plugin này cho các dự án website WordPress khác → các thông | plugin: `tl-site-caophat.php` (**v0.7.0* | ✅ — ❌ đã đổi tên 2026-09-17 → plugin `pl-tien-ich-tungleads` |
 | 2026-09-17 15:21 (giờ thật) | cline | **XOÁ ẢNH EMOJI LỖI TRONG PLUGIN** (Tùng: *“Xoá link ảnh lỗi trong plugin `https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.1/assets/26a0 | plugin: `tl-site-caophat.php`, `assets/t | ✅ — ❌ đã đổi tên 2026-09-17 → plugin `pl-tien-ich-tungleads` |
 | 2026-09-17 15:38 (giờ thật) | cline | **PLUGIN v1.0.0 — ĐỔI TÊN “SẠCH HẲN” ĐỂ DÙNG CHUNG** (Tùng: *“Muốn đổi luôn cho ‘sạch’ hẳn không? -> đổi luôn cho mình -> test lại kỹ đảm bảo không lỗ… *(xem FEATURE_MAP §2 GỐC)* | plugin: **đổi tên thư mục + `pl-tien-ich-tungleads.php` | ✅ |
@@ -89,3 +88,4 @@
 | 2026-09-18 20:55 (giờ thật) | cline | ❌ **ĐÍNH CHÍNH cấu trúc**: repo này giờ là **MONOREPO** (`parent-theme/` `plugin-tien-ich/` `plugin-zalo/`) — hết 4 repo riêng; local cần 4 bind mount (thiếu ⇒ `theme_no_stylesheet`); kèm fix fatal autoloader parent + deploy script trỏ thư mục con. | `AGENTS.md`/`CLAUDE.md` gốc, `docker-compose.yml`, `deploy-caophat.sh` | ✅ |
 | 2026-09-24 (giờ thật) | cline | ❌ **ĐÍNH CHÍNH CP1.3 — ghi công chân trang: bỏ gạch chân tên miền + link thêm `nofollow`.** Đo 1440/768/390: `underline`→`none`, tràn ngang 0, 0 notice. Chi tiết ở FEATURE_MAP `### CP1.3`. | `footer.php`, `assets/caophat.css`, FEATURE_MAP | ✅ |
 | 2026-09-24 (giờ thật #2) | cline | **DEPLOY PROD (CP1.3):** dry-run → `./deploy-caophat.sh --go`, đẩy 2 file (`footer.php`, `caophat.css`), 0 xoá; prod khớp local md5 **2/2**; Playwright prod 1440/390: `underline`→`none`, `nofollow`, tràn ngang 0. Commit `2c67e5b`. | `deploy-caophat.sh` | ✅ |
+| 2026-09-24 (giờ thật #3) | cline | **Đổi CHỮ link ghi công: tungleads.com → Tùng Lê Ads** (href giữ nguyên) + **deploy prod + purge LiteSpeed**; prod khớp md5; đo local+prod: "Thiết kế bởi: Tùng Lê Ads", rect 94,84→76,53px, không gạch chân, tràn ngang 0, commit `6cc6cea`. | `footer.php` | ✅ |

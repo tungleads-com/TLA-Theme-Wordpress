@@ -159,3 +159,4 @@
 <!-- rotate 2026-09-24: dòng cũ nhất của §2 chuyển nguyên văn về đây -->
 | 2026-09-17 14:12 (giờ thật) | cline | **CP8 v0.4.1 — THÊM KHỐI MỤC LỤC TRONG NỘI DUNG BÀI VIẾT** (Tùng: *“thêm tuỳ chọn mục lục hiển thị trong phần nội dung bài viết”*, ngay sau khi tự tay… *(xem FEATURE_MAP §2 GỐC)* | plugin: `includes/toc.php`, `assets/toc.css`, `assets/t | ✅ |
 | 2026-09-17 14:38 (giờ thật) | cline | **CP1.9 — “CHI NHÁNH & HOTLINE CAO PHÁT” CHUYỂN TỪ PLUGIN VỀ THEME** (Tùng hỏi *“chuyển phần (Hotline chi nhánh) trong plugin ra ngoài phần cài đặt …… *(xem FEATURE_MAP §2 GỐC)* | theme: `inc/customizer.php`, `functions.php`, `inc/wooc | ✅ |
+| 2026-09-17 14:57 (giờ thật) | cline | **1) TRẢ LỜI CÂU HỎI “mang plugin sang WordPress khác có chạy không?” — ĐÃ ĐO THẬT:** dựng **một WordPress MỚI** trong Docker (WP 7.1 + t | plugin: `tl-site-caophat.php` (**v0.6.0* | ✅ — ❌ đã đổi tên 2026-09-17 → plugin `pl-tien-ich-tungleads` |
