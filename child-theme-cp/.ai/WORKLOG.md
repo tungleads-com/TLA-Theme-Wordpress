@@ -21,13 +21,13 @@
 - **Model:** phiên này chạy **Cline** (VS Code) — **nhãn commit do Tùng chốt: `[deepseek]`**.
 - **CP1.3 — XONG + ĐÃ DEPLOY PROD (2026-09-24):** dòng ghi công chân trang “Thiết kế bởi: tungleads.com” — **bỏ gạch chân tên miền**
   (`assets/caophat.css`: `text-decoration: none`, cả khi `:hover`) + `<a>` thêm **`nofollow`** (`footer.php`: `rel="noopener nofollow"`).
-- **Commit:** `2c67e5b` (local, **CHƯA push** GitHub) · **Deploy:** `./deploy-caophat.sh --go` (có dry-run trước) ⇒ prod khớp local **md5 2/2** file.
-- **Đo lại trên PROD (Playwright, 1440/390):** `rel="noopener nofollow"` · `text-decoration-line: none` · hover chỉ đổi màu (`rgb(87,80,74)`→`rgb(20,18,15)`)
-  · tràn ngang **0** · 0 PHP notice · 0 lỗi JS ⇒ LiteSpeed cache đã trả bản mới, **không cần purge tay**.
-- **Đang dở:** (không) — repo sạch. **Việc tiếp theo:** (1) **push** 2 repo GitHub khi Tùng yêu cầu; (2) đổi slug đăng nhập thật trên prod; (3) tách `parent-theme` khi có site khách thứ 2.
-- **⚠️ Môi trường máy này:** cổng `3307` bị project KHÁC chiếm (`sofakimphucom-db-1`) ⇒ local chạy bằng override ngoài repo:
-  `docker compose -f docker-compose.yml -f /tmp/tla-override.yml up -d` (DB sang `127.0.0.1:3308`) → `http://localhost:8888` ✓.
-- **Cập nhật lúc:** 2026-09-24 (giờ thật)
+- **Commit:** `2c67e5b` + `e60bb6d` (local, **CHƯA push**) · **Deploy:** `./deploy-caophat.sh --go` (dry-run trước: 2 file, 0 xoá) ⇒ prod khớp local **md5 2/2**.
+- **Kiểm chứng PROD (từ ngoài):** `/`, `/san-pham/`, `/cart/` đều trả `rel="noopener nofollow"`; Playwright prod 1440/390: `text-decoration-line: none`,
+  hover chỉ đổi màu (`rgb(87,80,74)`→`rgb(20,18,15)`), tràn ngang 0, 0 PHP notice, 0 lỗi JS.
+- **⚠️ Bài học (mới):** trang chủ ban đầu VẪN phục vụ **HTML cache cũ** (`rel="noopener"` — CSS thì đã mới ngay) ⇒ sau deploy **BẮT BUỘC purge LiteSpeed**
+  (`wp eval 'do_action("litespeed_purge_all")'` bằng PHP 8.2 trên host) rồi kiểm lại: cache `hit` nay trả `nofollow` ✓.
+- **Đang dở:** (không). **Tiếp theo:** (1) **push** 2 repo GitHub; (2) đổi slug đăng nhập prod; (3) tách `parent-theme` khi có site khách thứ 2.
+- **Cập nhật lúc:** 2026-09-24 (giờ thật) · ⚠️ máy này: cổng `3307` bị project khác chiếm ⇒ local chạy kèm override `/tmp/tla-override.yml` (DB `127.0.0.1:3308`).
 
 ## §2 NHẬT KÝ (chỉ ghi thêm, mới nhất ở dưới)
 
