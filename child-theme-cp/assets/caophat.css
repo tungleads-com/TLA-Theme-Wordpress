@@ -639,7 +639,7 @@ body.cp .star-rating { color: var(--cp-star); }
 .cp-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
 .cp-card:hover .cp-card-media img { transform: scale(1.04); }
 .cp-badge {
-  position: absolute; top: 0; left: 0;
+  position: absolute; top: 0; left: 0; z-index: 2; /* nổi trên ảnh khi hover (ảnh scale tạo stacking context đè badge) */
   display: inline-flex; align-items: center; justify-content: center;
   padding: 7px 14px;
   background: var(--cp-sale); color: #fff;
