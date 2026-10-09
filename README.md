@@ -44,7 +44,7 @@ Kích hoạt theo thứ tự: **parent theme trước** (không kích hoạt tr�
 ### 1. Clone về máy (chỉ để xem/sửa code, không phải để chạy WordPress ngay)
 
 ```bash
-git clone git@github.com:lengoctung1989-sketch/TLA-Theme-Wordpress.git
+git clone git@github.com:tungleads-com/TLA-Theme-Wordpress.git
 ```
 
 > Lưu ý: **gốc repo không phải 1 theme WordPress** (không có `style.css` ở root) — WordPress phải trỏ vào từng thư mục con (`child-theme-cp/`, `parent-theme/`...) theo bảng "Cài đặt lên WordPress" ở trên, KHÔNG trỏ vào gốc repo.
@@ -57,7 +57,7 @@ Repo này không có script deploy — script deploy (`deploy-caophat.sh`, rsync
 
 ```bash
 # Copy thô 1 thư mục con (mất lịch sử commit riêng của phần đó)
-git clone --depth 1 git@github.com:lengoctung1989-sketch/TLA-Theme-Wordpress.git tmp-clone
+git clone --depth 1 git@github.com:tungleads-com/TLA-Theme-Wordpress.git tmp-clone
 cp -R tmp-clone/plugin-tien-ich ./plugin-moi
 rm -rf tmp-clone
 ```

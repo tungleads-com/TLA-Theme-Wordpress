@@ -1,0 +1,5 @@
+# Artifact đóng gói khi cần upload tay lên WordPress (VD plugin-zalo.zip) — không commit.
+*.zip
+
+.DS_Store
+*.log
