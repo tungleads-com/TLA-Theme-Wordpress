@@ -792,6 +792,39 @@ const TLPI_QO_MAX      = 5;  // số đơn tối đa / IP / 10 phút
 const TLPI_QO_WINDOW   = 600;
 const TLPI_QO_SHIPPING = 0;
 
+/**
+ * Số di động VN hợp lệ: đúng 10 số, đầu số thuộc danh sách nhà mạng Tùng chốt (2026-10-10).
+ * Chấp nhận dấu chấm/cách/gạch và tiền tố +84/84 (đổi về 0). Dùng chung popup đặt hàng nhanh + checkout.
+ * Đồng bộ danh sách với `assets/quick-order.js` (kiểm tra phía trình duyệt).
+ */
+function tlpi_is_vn_mobile( string $phone ): bool {
+	$digits = (string) preg_replace( '/\D/', '', $phone );
+	if ( 0 === strpos( $digits, '84' ) && 11 === strlen( $digits ) ) {
+		$digits = '0' . substr( $digits, 2 );
+	}
+	$prefixes = array(
+		'032', '033', '034', '035', '036', '037', '038', '039',
+		'052', '056', '058', '059',
+		'070', '076', '077', '078', '079',
+		'081', '082', '083', '084', '085', '086', '088', '089',
+		'090', '091', '092', '093', '094', '096', '097', '098', '099',
+	);
+	return 10 === strlen( $digits ) && in_array( substr( $digits, 0, 3 ), $prefixes, true );
+}
+
+/** Checkout WooCommerce: chặn đặt hàng nếu SĐT sai đầu số. */
+add_action(
+	'woocommerce_after_checkout_validation',
+	static function ( $data, $errors ) {
+		$phone = isset( $data['billing_phone'] ) ? (string) $data['billing_phone'] : '';
+		if ( '' !== $phone && ! tlpi_is_vn_mobile( $phone ) ) {
+			$errors->add( 'billing_phone_invalid', __( 'Số điện thoại chưa hợp lệ (cần 10 số, đầu số di động Việt Nam). Ví dụ: 0834.021.021', 'pl-tien-ich-tungleads' ) );
+		}
+	},
+	10,
+	2
+);
+
 /** Nonce cho popup (child theme gọi khi in form). */
 function tlpi_quick_order_nonce(): string {
 	return wp_create_nonce( TLPI_QO_NONCE );
@@ -854,7 +887,7 @@ function tlpi_quick_order_handle(): void {
 	if ( mb_strlen( $name ) < 2 ) {
 		$fail( __( 'Vui lòng nhập họ tên người nhận.', 'pl-tien-ich-tungleads' ) );
 	}
-	if ( ! preg_match( '/^0\d{9,10}$/', (string) preg_replace( '/\D/', '', $phone ) ) ) {
+	if ( ! tlpi_is_vn_mobile( $phone ) ) {
 		$fail( __( 'Số điện thoại chưa hợp lệ. Ví dụ: 0834.021.021', 'pl-tien-ich-tungleads' ) );
 	}
 	if ( mb_strlen( $address ) < 8 ) {

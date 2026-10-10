@@ -46,9 +46,23 @@
 		msg.classList.toggle('is-ok', !isError && !!text);
 	}
 
+	// Đầu số di động VN hợp lệ — đồng bộ với `tlpi_is_vn_mobile()` ở plugin (server vẫn kiểm tra lại).
+	var VN_PREFIXES = ['032','033','034','035','036','037','038','039','052','056','058','059','070','076','077','078','079','081','082','083','084','085','086','088','089','090','091','092','093','094','096','097','098','099'];
+	function isVnMobile(v) {
+		var d = String(v).replace(/\D/g, '');
+		if (d.length === 11 && d.indexOf('84') === 0) { d = '0' + d.slice(2); }
+		return d.length === 10 && VN_PREFIXES.indexOf(d.slice(0, 3)) !== -1;
+	}
+
 	function submitForm(form) {
 		var submit = form.querySelector('.cp-quick-order__submit');
 		if (!submit || submit.disabled) { return; }
+
+		if (!isVnMobile(form.elements.phone.value)) {
+			setMsg(cfg.i18n.phone, true);
+			form.elements.phone.focus();
+			return;
+		}
 
 		submit.disabled = true;
 		setMsg(cfg.i18n.sending, false);

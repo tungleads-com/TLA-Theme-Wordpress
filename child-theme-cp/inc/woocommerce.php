@@ -67,6 +67,7 @@ add_action(
 				'i18n'    => array(
 					'sending' => __( 'Đang gửi đơn…', 'tungleads-theme' ),
 					'error'   => __( 'Chưa gửi được đơn. Vui lòng thử lại hoặc gọi hotline.', 'tungleads-theme' ),
+					'phone'   => __( 'Số điện thoại chưa hợp lệ (10 số, đầu số di động Việt Nam). Ví dụ: 0834.021.021', 'tungleads-theme' ),
 				),
 			)
 		);
