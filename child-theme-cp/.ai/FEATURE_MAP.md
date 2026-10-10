@@ -100,7 +100,7 @@ Popup form ở trang chi tiết SP → tạo **đơn WooCommerce thật** (COD, 
 | Nonce sai / hết hạn | "Phiên làm việc đã hết hạn…" (403) |
 | Honeypot `cp_hp` có dữ liệu | "Không gửi được yêu cầu." |
 | Quá 5 đơn/IP/10 phút | "Bạn vừa gửi quá nhiều yêu cầu…" (429) |
-| Tên < 2 ký tự · SĐT không khớp `^0\d{9,10}$` · địa chỉ < 8 ký tự | báo đúng trường sai |
+| Tên < 2 ký tự · SĐT không phải số di động VN (10 số + đầu số trong `tlpi_is_vn_mobile()`; JS `isVnMobile()` kiểm trước, checkout dùng hook `woocommerce_after_checkout_validation`) · địa chỉ < 8 ký tự | báo đúng trường sai |
 | SP không publish/purchasable, hoặc không đủ tồn kho | báo tương ứng, **không** tạo đơn |
 | Đặt thành công | Trả về `message` + `redirect` = `$order->get_checkout_order_received_url()` (đã kèm `?key=`); JS hiện thông báo ~0,8s rồi `window.location.assign()` sang trang hoàn tất đơn (CP3.6). Trong lúc chờ chuyển trang, nút gửi **vẫn bị khoá** (biến `redirecting`) để khách bấm nhanh 2 lần không tạo 2 đơn |
 
