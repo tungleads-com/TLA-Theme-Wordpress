@@ -131,9 +131,10 @@ add_action(
 			add_action( 'woocommerce_single_product_summary', 'cp_single_price_box_open', 9 );
 			add_action( 'woocommerce_single_product_summary', 'cp_single_price_box_close', 11 );
 
-			// Nút "MUA HÀNG" (gọi điện) cạnh nút thêm giỏ; nút hotline phụ full-width.
+			// Nút "MUA HÀNG" (gọi điện) cạnh nút thêm giỏ; nút Gọi/Zalo in SAU form (prio 31 > add_to_cart 30)
+			// để hiện cả khi SP không giá (không giá ⇒ không có form giỏ hàng).
 			add_action( 'woocommerce_before_add_to_cart_button', 'cp_single_buynow_btn', 5 );
-			add_action( 'woocommerce_after_add_to_cart_button', 'cp_single_hotline_btn', 20 );
+			add_action( 'woocommerce_single_product_summary', 'cp_single_hotline_btn', 31 );
 
 			// Mũi tên điều hướng cho gallery flexslider.
 			add_filter( 'woocommerce_single_product_carousel_options', 'cp_gallery_carousel_options' );
@@ -807,14 +808,27 @@ add_filter(
 	3
 );
 
+/** SP có giá để hiển thị? (không giá ⇒ ẩn hộp giá, giữ nút Gọi/Zalo). */
+function cp_single_has_price(): bool {
+	global $product;
+	return $product instanceof WC_Product && '' !== $product->get_price();
+}
+
 /** Mở hộp giá (giá do WooCommerce in ở prio 10; tag "Tiết kiệm" in ở _close). */
 function cp_single_price_box_open(): void {
+	if ( ! cp_single_has_price() ) {
+		return;
+	}
 	echo '<div class="cp-price-box">';
 }
 
 /** Đóng hộp giá + tag "Tiết kiệm <số tiền>" (đặt SAU .price để nằm dưới giá). */
 function cp_single_price_box_close(): void {
 	global $product;
+
+	if ( ! cp_single_has_price() ) {
+		return;
+	}
 
 	if ( $product instanceof WC_Product && $product->is_on_sale() ) {
 		list( $regular, $sale ) = cp_regular_sale_price( $product );

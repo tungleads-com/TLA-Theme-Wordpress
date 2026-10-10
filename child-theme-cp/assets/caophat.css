@@ -1470,9 +1470,14 @@ body.cp main#main { padding-block: 0; }
   /* 50/50: 2 nút chia đều chiều rộng. `minmax(0, 1fr)` cho phép co lại khi cột hẹp
      (nhãn "THÊM VÀO GIỎ HÀNG" cần ~195px, ở desktop mỗi nút ~228px nên vẫn 1 dòng). */
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;
-  align-items: stretch; margin: 0 0 4px;
+  align-items: stretch; margin: 0;
 }
 .cp-single-layout form.cart .quantity { display: none; }
+/* WooCommerce: `.woocommerce div.product form.cart { margin-bottom: 3em }` (0,2,2) thắng rule trên, và clearfix
+   `::before/::after` thành ô lưới → thừa 12px gap + 32px margin dưới form. Gỡ cả hai để 4 nút cách đều 12px. */
+.woocommerce .cp-single-layout div.product form.cart { margin: 0; }
+.woocommerce .cp-single-layout div.product form.cart::before,
+.woocommerce .cp-single-layout div.product form.cart::after { display: none; }
 .cp-buynow {
   grid-column: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
   text-align: left;
@@ -1500,8 +1505,10 @@ body.cp main#main { padding-block: 0; }
 .woocommerce .cp-single-layout form.cart .single_add_to_cart_button:hover { background: var(--cp-primary-dark); }
 
 /* Hàng nút liên hệ: Gọi (cam) + Zalo (xanh) */
-.cp-single-layout form.cart .cp-contact-row {
-  grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px;
+/* In SAU form.cart (hook summary prio 31) nên hiện cả khi SP không giá. Mọi khoảng cách dọc giữa 4 nút = 12px
+   (= gap ngang); cách khối kế tiếp 20px. */
+.cp-single-layout .cp-contact-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 20px;
 }
 /* `padding: 10px` — Tùng chốt 2026-09-18: hiện KHÔNG đổi hình vì `height: 48px` + flex center đã lo phần đệm
    (đo 1280/1024/768/390: nút vẫn 192–342 × 48, số dòng chữ y hệt, tràn ngang 0). Giữ để code rõ ràng và sẵn
